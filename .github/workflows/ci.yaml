@@ -1,0 +1,20 @@
+name: ci-sonarqube-cloud
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  run-ci:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: ["1.21"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v4
+        with:
+          go-version: ${{matrix.go}}
+      - run: go test -coverprofile=coverage.out
+      
+
